@@ -28,9 +28,6 @@ The `print` cli allows you to print your wordpress content to pdf.
 ```
   Usage: print [options]
 
-  UX Devops Turbo Appliance CLI
-
-
   Options:
 
     --version               output the version number
@@ -41,7 +38,7 @@ The `print` cli allows you to print your wordpress content to pdf.
 
   Commands:
 
-    print [options]      prints wordpress content to pdf
+    print [options]         prints wordpress content to pdf
 
   .wordpress-cli.yml: 
   
