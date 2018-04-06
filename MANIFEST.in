@@ -1,0 +1,6 @@
+exclude .gitignore
+include README.md
+include setup.cfg
+prune .cache
+prune .git
+recursive-exclude *.egg-info *
