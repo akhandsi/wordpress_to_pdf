@@ -4,12 +4,16 @@ import os
 from os.path import expanduser
 import urllib3
 import click
+from click_help_colors import HelpColorsGroup, HelpColorsCommand
 from . import __version__ as VERSION
 import scripts.auth
 import scripts.posts
 
 
-@click.command()
+@click.command(
+    cls=HelpColorsCommand,
+    help_options_color='yellow'
+)
 @click.option('--type', default='posts', help='Type of wordpress content')
 @click.option('--path', default='', help='destination of pdf file')
 @click.version_option(version=VERSION)
