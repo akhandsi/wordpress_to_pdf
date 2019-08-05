@@ -9,6 +9,7 @@
 ```bash
 $ ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
 $ brew install python3
+$ pip install virtualenv
 ```
 
 ### Install the `wordpress-to-pdf` utilities...
