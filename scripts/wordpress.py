@@ -9,7 +9,7 @@ def login():
     # fetch yml config
     data = config.fetch()
 
-    print("==> Authenticating to " + data['site_url'])
+    print("==> Authenticating to " + data['site_domain'])
 
     # login and handle response
     try:
@@ -27,8 +27,10 @@ def get_posts_by_page(page, post_per_page, post_category_id):
     # fetch yml config
     config_props = config.fetch()
     args = {"page": page, "_envelope": "1", 'per_page': post_per_page, 'categories': post_category_id}
-    url = "https://public-api.wordpress.com/wp/v2/sites/" + config_props["site_url"] + "/posts?{}".format(
+    url = "https://public-api.wordpress.com/wp/v2/sites/" + config_props["site_domain"] + "/posts?{}".format(
         urllib.urlencode(args))
+
+    print("===> Querying API " + url)
 
     # fetch post and handle response
     try:
