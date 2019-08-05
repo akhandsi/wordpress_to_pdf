@@ -9,6 +9,7 @@
 ```bash
 $ ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
 $ brew install python3
+$ brew install Caskroom/cask/wkhtmltopdf
 $ pip install virtualenv
 ```
 
@@ -48,8 +49,10 @@ The `print` cli allows you to print your wordpress content to pdf.
      - password: password of the wordpress.com blog
      - client_id: client id of the wordpress.com blog
      - client_secret: client secret key of the wordpress.com blog
-     - site_url: the location of the wordpress.com blog
+     - site_domain: the domain of the wordpress.com blog
      
      print will look for .wordpress-cli.yml in the current directory
      and $HOME/.wordpress-cli.yml
 ```
+
+*client_id, client_secret can be retrieved via https://developer.wordpress.com/docs/api/console/ 
