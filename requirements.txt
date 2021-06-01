@@ -1,7 +1,7 @@
 pdfkit==0.6.1
 progressbar==2.3
 PyYAML==5.1
-urllib3==1.24.2
+urllib3==1.26.5
 requests==2.20.0
 click==6.7
 click-help-colors==0.4
