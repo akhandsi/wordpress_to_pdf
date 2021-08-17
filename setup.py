@@ -14,12 +14,11 @@ with open('scripts/__init__.py', 'rb') as f:
 # set up dependencies and cli command 'print'
 setup(
     name="wordpress_to_pdf",
-    version='0.1',
+    version='0.1.1',
     py_modules=['start'],
     install_requires=[],
     packages=find_packages(),
-    entry_points='''
-        [console_scripts]
-        wordpressPrint=scripts.start:main
-    ''',
+    entry_points={
+        'console_scripts': ['wordpress-print = scripts.start:main']
+    },
 )

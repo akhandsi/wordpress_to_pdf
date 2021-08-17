@@ -27,6 +27,7 @@ clean:
 	rm -rf venv
 	rm -rf dist
 	rm -rf build
+	rm -rf scripts/__pycache__
 	rm -rf *.egg-info
 	find . -name "*.pyc" -exec rm -rf {} \;
 	find . -name "*.pyo" -exec rm -rf {} \;
@@ -36,12 +37,13 @@ install: _initvenv _development
 	. venv/bin/activate
 
 _initvenv: clean
-	python -m virtualenv venv
+	python3 -m virtualenv venv
 
 _development:
-	venv/bin/pip install --upgrade pip
-	venv/bin/pip install --upgrade setuptools
-	venv/bin/pip install -Ur requirements.txt
-	venv/bin/pip install --editable .
+	venv/bin/pip3 install --upgrade pip
+	venv/bin/pip3 install --upgrade setuptools
+	venv/bin/pip3 install progressbar2
+	venv/bin/pip3 install -Ur requirements.txt
+	venv/bin/pip3 install --editable .
 
 .PHONY: help clean install

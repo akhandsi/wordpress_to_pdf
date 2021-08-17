@@ -1,0 +1,6 @@
+scripts/__pycache__
+venv
+wordpress_to_pdf.egg-info
+.idea
+.wordpress-cli.yml
+.DS_Store
