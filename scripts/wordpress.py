@@ -2,9 +2,8 @@ import sys
 import requests
 import urllib
 from time import sleep
-from progressbar import ProgressBar, FormatLabel, Bar, Percentage
+from progressbar import ProgressBar, FormatLabel, Bar
 import pdfkit
-import json
 import scripts.config
 
 pdf_css = ['scripts/css/pdf.css']
@@ -16,19 +15,19 @@ pdf_options = {
     'margin-left': '0.5in',
     'encoding': 'UTF-8',
     'quiet': '',
-    }
+}
 
-# WordpressUtility is a class to perform various wordpress related operations
+
+# WordpressUtility is a class to perform various wordPress related operations
 class WordpressUtility:
-
     __data = []
 
     # constructor
     def __init__(self):
-        self.__data = scripts.config.fetch()
+        self.__data = {k: v for d in scripts.config.fetch() for k, v in d.items()}
         self.__authenticate()
 
-    # authenticate to wordpress developer portal
+    # authenticate to wordPress developer portal
     def __authenticate(self):
         try:
             response = \
@@ -44,7 +43,8 @@ class WordpressUtility:
     # fetch all posts for the given page
     def __fetch_home_page(self):
         try:
-            url = 'https://public-api.wordpress.com/wp/v2/sites/{0}/pages/{1}'.format(str(self.__data['site_id']), self.__data['home_page_id'])
+            url = 'https://public-api.wordpress.com/wp/v2/sites/{0}/pages/{1}'.format(str(self.__data['site_id']),
+                                                                                      self.__data['home_page_id'])
             response = requests.get(url)
             response.raise_for_status()
         except requests.exceptions.HTTPError as err:
@@ -61,8 +61,9 @@ class WordpressUtility:
                 '_envelope': '1',
                 'per_page': 20,
                 'categories': self.__data['post_category_id'],
-                }
-            url = 'https://public-api.wordpress.com/wp/v2/sites/{0}/posts?_embed=author,wp:term&{1}'.format(str(self.__data['site_id']), urllib.parse.urlencode(args))
+            }
+            url = 'https://public-api.wordpress.com/wp/v2/sites/{0}/posts?_embed=author,wp:term&{1}'.format(
+                str(self.__data['site_id']), urllib.parse.urlencode(args))
             response = requests.get(url)
             response.raise_for_status()
         except requests.exceptions.HTTPError as err:
@@ -71,7 +72,7 @@ class WordpressUtility:
 
         return response.json()
 
-    # download wordpress content to provided pdf file
+    # download wordPress content to provided pdf file
     def download_to_pdf(self, pdf_file_path):
 
         # fetch first page, this is needed to get the first header and identify totalPages
@@ -128,7 +129,8 @@ class WordpressUtility:
         html_string = """{0} {1}""".format(user_info_html_string, posts_html_string)
 
         # convert html string to pdf
-        pdfkit.from_string(html_string, pdf_file_path,options=pdf_options, css=pdf_css)
+        pdfkit.from_string(html_string, pdf_file_path, options=pdf_options, css=pdf_css)
+
 
 # WordpressHtmlUtility is a class to handle html formatting for every posts
 class WordpressHtmlUtility:
@@ -164,7 +166,10 @@ class WordpressHtmlUtility:
         title = post['title']
         content = post['content']
         rendered_title = title['rendered']
-        rendered_content = content['rendered'].replace('\n', '').replace('div','p').replace(' style="margin-top:20px;"', '').replace('<p><p>', '<p>').replace('</p></p>', '</p>').replace('<p></p>', '').replace('<p>&nbsp;</p>', '')
+        rendered_content = content['rendered'].replace('\n', '').replace('div', 'p').replace(
+            ' style="margin-top:20px;"', '').replace('<p><p>', '<p>').replace('</p></p>', '</p>').replace('<p></p>',
+                                                                                                          '').replace(
+            '<p>&nbsp;</p>', '')
         return """<div class="new-page">
                     <h2>{0}</h2>
                     <br><br>
